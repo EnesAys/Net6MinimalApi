@@ -13,6 +13,10 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
+#region Api Operaitons
+
+#region Get
+
 app.MapGet("/jerseys", ([FromServices] IJerseyService jerseyService) => Results.Ok(jerseyService.GetAll()))
     .Produces<List<Jersey>>(StatusCodes.Status200OK)
     .WithName("Get All Jersey").WithTags("Jersey");
@@ -25,6 +29,10 @@ app.MapGet("/jerseys/{id}", ([FromServices] IJerseyService jerseyService, int id
 .Produces<Jersey>(StatusCodes.Status200OK).Produces(StatusCodes.Status404NotFound)
 .WithName("Get Spesific Jersey").WithTags("Jersey");
 
+#endregion
+
+#region Post
+
 app.MapPost("/jerseys", ([FromBody] Jersey jersey, [FromServices] IJerseyService jerseyService) =>
 {
     var insertedId = jerseyService.Insert(jersey);
@@ -34,6 +42,10 @@ app.MapPost("/jerseys", ([FromBody] Jersey jersey, [FromServices] IJerseyService
 .Produces<int>(StatusCodes.Status201Created).Produces(StatusCodes.Status400BadRequest)
 .WithName("Add New Jersey").WithTags("Jersey");
 
+#endregion
+
+#region Put
+
 app.MapPut("/jerseys", (int id, string playerName, [FromServices] IJerseyService jerseyService) =>
 {
     var updatedJersey = jerseyService.Update(id, playerName);
@@ -42,6 +54,9 @@ app.MapPut("/jerseys", (int id, string playerName, [FromServices] IJerseyService
 .Produces<Jersey>(StatusCodes.Status200OK).Produces(StatusCodes.Status400BadRequest)
 .WithName("Update Jersey Player Name").WithTags("Jersey");
 
+#endregion
+
+#region Delete
 app.MapDelete("/jerseys", (int id, [FromServices] IJerseyService jerseyService) =>
 {
     var isDeleted = jerseyService.Delete(id);
@@ -51,6 +66,8 @@ app.MapDelete("/jerseys", (int id, [FromServices] IJerseyService jerseyService) 
 .WithName("Delete Jersey ").WithTags("Jersey");
 
 app.Run("http://localhost:1000");
+#endregion
+#endregion
 
 //Authorize yada AllowAnonymous attributeler ve async gibi keywordler burada kullanýlabilir. Örnek kullaným;
 //app.MapPost("/jerseys", [AllowAnonymous] async ([FromBody] Jersey jersey, IJerseyService jerseyService) => Results.Ok());
