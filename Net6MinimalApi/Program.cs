@@ -46,7 +46,7 @@ app.MapPost("/jerseys", ([FromBody] Jersey jersey, [FromServices] IJerseyService
 
 #region Put
 
-app.MapPut("/jerseys", (int id, string playerName, [FromServices] IJerseyService jerseyService) =>
+app.MapPut("/jerseys/{id}", (int id, string playerName, [FromServices] IJerseyService jerseyService) =>
 {
     var updatedJersey = jerseyService.Update(id, playerName);
     return updatedJersey != null ? Results.Ok(updatedJersey) : Results.BadRequest();
@@ -58,7 +58,7 @@ app.MapPut("/jerseys", (int id, string playerName, [FromServices] IJerseyService
 
 #region Delete
 
-app.MapDelete("/jerseys", (int id, [FromServices] IJerseyService jerseyService) =>
+app.MapDelete("/jerseys/{id}", (int id, [FromServices] IJerseyService jerseyService) =>
 {
     var isDeleted = jerseyService.Delete(id);
     return isDeleted ? Results.Ok() : Results.NotFound();
@@ -66,11 +66,11 @@ app.MapDelete("/jerseys", (int id, [FromServices] IJerseyService jerseyService) 
 .Produces(StatusCodes.Status200OK).Produces(StatusCodes.Status404NotFound)
 .WithName("Delete Jersey ").WithTags("Jersey");
 
+#endregion
+
+#endregion
+
 app.Run("http://localhost:1000");
-
-#endregion
-
-#endregion
 
 //Authorize yada AllowAnonymous attributeler ve async gibi keywordler burada kullanýlabilir. Örnek kullaným;
 //app.MapPost("/jerseys", [AllowAnonymous] async ([FromBody] Jersey jersey, [FromServices] IJerseyService jerseyService) => Results.Ok());
