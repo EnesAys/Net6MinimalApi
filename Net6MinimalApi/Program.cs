@@ -57,6 +57,7 @@ app.MapPut("/jerseys", (int id, string playerName, [FromServices] IJerseyService
 #endregion
 
 #region Delete
+
 app.MapDelete("/jerseys", (int id, [FromServices] IJerseyService jerseyService) =>
 {
     var isDeleted = jerseyService.Delete(id);
@@ -66,15 +67,17 @@ app.MapDelete("/jerseys", (int id, [FromServices] IJerseyService jerseyService) 
 .WithName("Delete Jersey ").WithTags("Jersey");
 
 app.Run("http://localhost:1000");
+
 #endregion
+
 #endregion
 
 //Authorize yada AllowAnonymous attributeler ve async gibi keywordler burada kullanýlabilir. Örnek kullaným;
-//app.MapPost("/jerseys", [AllowAnonymous] async ([FromBody] Jersey jersey, IJerseyService jerseyService) => Results.Ok());
-//app.MapPost("/jerseys", [Authorize] async ([FromBody] Jersey jersey, IJerseyService jerseyService) => Results.Ok());
+//app.MapPost("/jerseys", [AllowAnonymous] async ([FromBody] Jersey jersey, [FromServices] IJerseyService jerseyService) => Results.Ok());
+//app.MapPost("/jerseys", [Authorize] async ([FromBody] Jersey jersey, [FromServices] IJerseyService jerseyService) => Results.Ok());
 
-//app.MapPost("/jerseys", async ([FromBody] Jersey jersey, IJerseyService jerseyService) => Results.Ok()).RequireAuthorization();
-//app.MapPost("/jerseys", async ([FromBody] Jersey jersey, IJerseyService jerseyService) => Results.Ok()).AllowAnonymous();
+//app.MapPost("/jerseys", async ([FromBody] Jersey jersey, [FromServices] IJerseyService jerseyService) => Results.Ok()).RequireAuthorization();
+//app.MapPost("/jerseys", async ([FromBody] Jersey jersey, [FromServices] IJerseyService jerseyService) => Results.Ok()).AllowAnonymous();
 
 //app.Run("http://localhost:1000"); // Custom Port 
 
