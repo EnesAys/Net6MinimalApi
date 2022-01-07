@@ -1,2 +1,2 @@
 # Net6MinimalApi
-.Net 6 Minimal Api Simple Crud Operations
+.Net 6 Minimal Api Get, Pos, Put and Delete operation with Swagger
