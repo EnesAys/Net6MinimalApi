@@ -1,8 +1,8 @@
-﻿namespace Net6MinimalApi.Models
+﻿namespace Net6MinimalApi.Models;
+
+public class Player
 {
-    public class Player
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-    }
+    public int Id { get; set; }
+    public string Name { get; set; }
 }
+
