@@ -45,7 +45,7 @@ namespace Net6MinimalApi.Services
         public Jersey Update(int id, string playerName)
         {
             var jersey = Get(id);
-            if (jersey == null)
+            if (jersey == null || jersey.Player == null)
                 return null;
 
             jersey.Player.Name = playerName;

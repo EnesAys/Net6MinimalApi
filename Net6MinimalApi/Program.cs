@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Net6MinimalApi.Extensions;
 using Net6MinimalApi.Models;
 using Net6MinimalApi.Services;
 
@@ -15,19 +16,9 @@ app.UseSwaggerUI();
 
 #region Api Operaitons
 
-#region Get
+#region Get map routes via extension
 
-app.MapGet("/jerseys", ([FromServices] IJerseyService jerseyService) => Results.Ok(jerseyService.GetAll()))
-    .Produces<List<Jersey>>(StatusCodes.Status200OK)
-    .WithName("Get All Jersey").WithTags("Jersey");
-
-app.MapGet("/jerseys/{id}", ([FromServices] IJerseyService jerseyService, int id) =>
-{
-    var jersey = jerseyService.Get(id);
-    return jersey != null ? Results.Ok(jersey) : Results.NotFound();
-})
-.Produces<Jersey>(StatusCodes.Status200OK).Produces(StatusCodes.Status404NotFound)
-.WithName("Get Spesific Jersey").WithTags("Jersey");
+app.MapJerseyGetEndpoints();
 
 #endregion
 
